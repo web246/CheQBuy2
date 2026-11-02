@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7f7">
+  <meta name="description" content="Browse products from CheQBuy and build your shopping list.">
+  <title>Shop CheQBuy | African Trade</title>
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="webapp.css">
+</head>
+<body>
+  <header class="store-header">
+    <a class="store-brand" href="index.html" aria-label="CheQBuy African Trade home">
+      <img src="img/logo.png" alt="" width="42" height="40">
+      <span>CheQBuy<small>AFRICAN TRADE</small></span>
+    </a>
+    <span class="store-header-label">Marketplace</span>
+    <a class="login-button" href="https://chiche.savannahsystems.uk/login?redirect=/orders">Log in <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main class="store-main">
+    <section class="store-intro">
+      <div>
+        <p class="store-eyebrow"><span></span> CHEQBUY MARKETPLACE</p>
+        <h1 id="viewTitle">Find what moves<br><em>your business.</em></h1>
+        <p class="store-subtitle" id="viewSubtitle">Explore products from trusted trade categories. Add your picks to a list, then sign in with CheQBuy to place an order.</p>
+      </div>
+      <div class="store-promise"><span aria-hidden="true">✓</span><span>Trade with confidence<small>One platform for your next opportunity.</small></span></div>
+    </section>
+
+    <section class="home-view" id="homeView" aria-label="Marketplace home">
+      <div class="home-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+        <form id="homeSearchForm" role="search">
+          <label class="sr-only" for="homeSearch">Search products, categories or origin</label>
+          <input id="homeSearch" type="search" placeholder="What are you looking for?" autocomplete="off">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <section class="home-promo" aria-label="Marketplace picks">
+        <div class="home-promo-copy">
+          <p>GOOD THINGS, SOURCED WITH CARE</p>
+          <h2>Find something<br>made for you.</h2>
+          <span>From everyday essentials to the next big idea, start exploring.</span>
+          <button type="button" class="home-promo-button" data-view="shop">Explore the shop <span aria-hidden="true">↗</span></button>
+          <div class="home-promo-trust"><span aria-hidden="true">✓</span> Thoughtful finds. Clear prices. Easy browsing.</div>
+        </div>
+        <div class="home-spotlight" id="homeSpotlight" role="region" aria-label="Featured product carousel" aria-roledescription="carousel" tabindex="0">
+          <div class="spotlight-stage">
+            <div class="spotlight-disc" aria-hidden="true"><span></span><i></i></div>
+            <div class="spotlight-product" id="homeSpotlightProduct" aria-live="polite"></div>
+          </div>
+          <div class="spotlight-controls">
+            <button type="button" class="spotlight-arrow" id="spotlightPrev" aria-label="Previous featured product">←</button>
+            <div class="spotlight-dots" id="spotlightDots" aria-label="Choose a featured product"></div>
+            <button type="button" class="spotlight-arrow" id="spotlightNext" aria-label="Next featured product">→</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-categories" aria-labelledby="homeCategoriesHeading">
+        <div class="home-section-heading"><div><p class="store-eyebrow store-eyebrow-muted">START EXPLORING</p><h2 id="homeCategoriesHeading">Shop by category</h2></div><button class="home-text-button" type="button" data-view="shop">View all <span aria-hidden="true">→</span></button></div>
+        <div class="home-category-grid">
+          <button type="button" class="home-category-card" data-home-category="Electronics"><img src="img/iphone.jpg" alt=""><span>Electronics</span></button>
+          <button type="button" class="home-category-card" data-home-category="Fashion &amp; Textiles"><img src="img/kitenge.jpg" alt=""><span>Fashion &amp; textiles</span></button>
+          <button type="button" class="home-category-card" data-home-category="Home &amp; Living"><img src="img/sofa.jpg" alt=""><span>Home &amp; living</span></button>
+          <button type="button" class="home-category-card" data-home-category="Agricultural Products"><img src="img/coffee.jpg" alt=""><span>Food &amp; agriculture</span></button>
+          <button type="button" class="home-category-card" data-home-category="Machinery"><img src="img/generator.jpg" alt=""><span>Machinery</span></button>
+        </div>
+      </section>
+
+      <section class="home-featured" aria-labelledby="homeFeaturedHeading">
+        <div class="home-section-heading"><div><p class="store-eyebrow store-eyebrow-muted">A FEW GOOD PICKS</p><h2 id="homeFeaturedHeading">Featured products</h2></div><button class="home-text-button" type="button" data-view="shop">Shop all products <span aria-hidden="true">→</span></button></div>
+        <div class="product-grid" id="homeFeaturedGrid"></div>
+      </section>
+
+      <aside class="home-help">
+        <span><b>Looking for something specific?</b><small>Our team can help you find the right trade support.</small></span>
+        <a href="index.html#contact">Talk to CheQBuy <span aria-hidden="true">↗</span></a>
+      </aside>
+    </section>
+
+    <section class="catalog-tools" id="catalogTools" aria-label="Search and filter products">
+      <label class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+        <input id="productSearch" type="search" placeholder="Search products, categories or origin" autocomplete="off">
+        <span class="search-shortcut">SEARCH</span>
+      </label>
+      <div class="category-list" id="categoryList" role="group" aria-label="Product categories"></div>
+    </section>
+
+    <section class="catalog-view" id="catalogView" aria-labelledby="viewTitle">
+      <div class="view-heading">
+        <div><p class="store-eyebrow store-eyebrow-muted" id="catalogEyebrow">MADE FOR YOUR BUSINESS</p><h2 id="catalogHeading">Explore the marketplace</h2></div>
+        <span id="resultCount" aria-live="polite"></span>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="catalogEmpty" hidden>
+        <span class="empty-icon" aria-hidden="true">⌕</span>
+        <h2>No matches just yet</h2>
+        <p>Try another search or choose a different category.</p>
+      </div>
+    </section>
+
+    <section class="list-view" id="wishlistView" hidden aria-labelledby="wishlistHeading">
+      <div class="view-heading"><div><p class="store-eyebrow store-eyebrow-muted">YOUR SHORTLIST</p><h2 id="wishlistHeading">Saved products</h2></div><span id="wishlistCount"></span></div>
+      <div class="product-grid" id="wishlistGrid"></div>
+      <div class="empty-state" id="wishlistEmpty" hidden><span class="empty-icon" aria-hidden="true">♡</span><h2>Your wishlist is waiting</h2><p>Save products you like and find them here later.</p><button class="subtle-button" type="button" data-view="shop">Browse products</button></div>
+    </section>
+
+    <section class="list-view" id="cartView" hidden aria-labelledby="cartHeading">
+      <div class="view-heading"><div><p class="store-eyebrow store-eyebrow-muted">READY WHEN YOU ARE</p><h2 id="cartHeading">Your shopping cart</h2></div><span id="cartCountLabel"></span></div>
+      <div class="cart-layout">
+        <div class="cart-list" id="cartList"></div>
+        <aside class="cart-summary">
+          <p class="store-eyebrow store-eyebrow-muted">ORDER SUMMARY</p>
+          <div class="summary-row"><span>Items</span><span id="cartItemsTotal">0</span></div>
+          <div class="summary-row summary-total"><b>Subtotal</b><b id="cartSubtotal">KES 0</b></div>
+          <p class="summary-note">Shipping and final pricing are confirmed in the CheQBuy web app.</p>
+          <button type="button" class="checkout-button" id="checkoutButton" disabled>Sign in to checkout <span aria-hidden="true">↗</span></button>
+          <p class="checkout-note">Sign-in and order placement continue in the secure CheQBuy web app. This preview cart does not transfer, so you’ll need to add the items again after signing in.</p>
+        </aside>
+      </div>
+      <div class="empty-state" id="cartEmpty" hidden><span class="empty-icon" aria-hidden="true">＋</span><h2>Your cart is empty</h2><p>Browse the marketplace and add products to get started.</p><button class="subtle-button" type="button" data-view="shop">Explore products</button></div>
+    </section>
+  </main>
+
+  <nav class="orb-nav" aria-label="Store navigation">
+    <button class="orb-link" type="button" data-view="home" aria-label="Marketplace home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg><span>Home</span>
+    </button>
+    <button class="orb-link" type="button" data-view="shop" aria-label="Shop products">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18l-1.6 11H4.6L3 9zM3 9l2-5h14l2 5M9 13v3M15 13v3"/></svg><span>Shop</span>
+    </button>
+    <button class="orb-link" type="button" data-view="wishlist" aria-label="View wishlist">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg><span>Saved</span><i class="nav-count" id="wishlistBadge" hidden>0</i>
+    </button>
+    <button class="orb-link" type="button" data-view="cart" aria-label="View cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 7H6"/></svg><span>Cart</span><i class="nav-count" id="cartBadge" hidden>0</i>
+    </button>
+    <a class="orb-link orb-orders" href="https://chiche.savannahsystems.uk/login?redirect=/orders" aria-label="Sign in to view your orders">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"/></svg><span>Orders</span>
+    </a>
+  </nav>
+
+  <dialog class="signin-dialog" id="signinDialog" aria-labelledby="signinTitle">
+    <button type="button" class="dialog-close" id="closeDialog" aria-label="Close dialog">×</button>
+    <span class="dialog-icon" aria-hidden="true">✓</span>
+    <p class="store-eyebrow">SECURE CHEQBUY CHECKOUT</p>
+    <h2 id="signinTitle">Sign in to continue.</h2>
+    <p>Sign in to your CheQBuy account to complete your order. Secure checkout and final shipping details are handled in the web app.</p>
+    <a class="checkout-button dialog-signin" href="https://chiche.savannahsystems.uk/login?redirect=/orders">Sign in to CheQBuy <span aria-hidden="true">↗</span></a>
+    <button type="button" class="dialog-cancel" id="cancelDialog">Keep browsing</button>
+  </dialog>
+  <div class="store-toast" id="storeToast" role="status" aria-live="polite"></div>
+  <script src="webapp.js"></script>
+</body>
+</html>
