@@ -1,44 +1,107 @@
 'use strict';
 
+document.documentElement.classList.add('js');
+
+const revealGroups = [
+  '.hero-copy > *, .hero-visual',
+  '.intro-band .proof-item',
+  '.journey-intro > *, .prompt-cloud, .journey-cta',
+  '.journey-step',
+  '.section-heading > *, .service-card',
+  '.app-copy > *:not(.visually-hidden), .app-carousel',
+  '.questions-heading > *, .faq-item',
+  '.contact-inner > *',
+  '.footer-main > *, .footer-bottom'
+];
+const revealTargets = new Set();
+revealGroups.forEach(selector => {
+  document.querySelectorAll(selector).forEach((element, index) => {
+    element.classList.add('reveal-on-scroll');
+    element.style.setProperty('--reveal-delay', `${index * 75}ms`);
+    revealTargets.add(element);
+  });
+});
+
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+  revealTargets.forEach(element => revealObserver.observe(element));
+} else {
+  revealTargets.forEach(element => element.classList.add('is-visible'));
+}
+
 const appScreens = [
-  ['app-gallery/app-splash.jpeg', 'Welcome', 'CheQBuy app welcome screen'],
-  ['app-gallery/app-trade-partner.jpeg', 'Trade partner', 'CheQBuy app trade partner introduction'],
-  ['app-gallery/app-verified-suppliers.jpeg', 'Verified suppliers', 'CheQBuy app verified suppliers screen'],
-  ['app-gallery/app-track-shipment.jpeg', 'Track shipment', 'CheQBuy app shipment tracking screen'],
-  ['app-gallery/app-shipping-rates.jpeg', 'Shipping rates', 'CheQBuy app shipping rates screen'],
-  ['app-gallery/app-home.jpeg', 'Home', 'CheQBuy app home screen'],
-  ['app-gallery/app-home-products.jpeg', 'Featured products', 'CheQBuy app featured products screen'],
-  ['app-gallery/app-more.jpeg', 'More services', 'CheQBuy app more services screen'],
-  ['app-gallery/app-verify-number.jpeg', 'Verify number', 'CheQBuy app phone verification screen'],
-  ['app-gallery/app-login.jpeg', 'Log in', 'CheQBuy app login screen']
+  ['app-gallery/site-welcome.webp', 'Welcome', 'CheQBuy app welcome screen with supplier, payment and delivery features'],
+  ['app-gallery/site-home.webp', 'Home', 'CheQBuy app home screen with product search and quick actions'],
+  ['app-gallery/site-shop.webp', 'Shop', 'CheQBuy app shop screen with verified sellers and product prices'],
+  ['app-gallery/site-shipping.webp', 'Shipping options', 'CheQBuy app air, sea and express shipping options']
 ];
 
-const track = document.querySelector('#appTrack');
+const carouselRegion = document.querySelector('#appCarousel');
+const carouselControls = document.querySelector('#appCarouselControls');
+const screenImage = document.querySelector('#appScreenImage');
 const count = document.querySelector('#appCount');
 const dots = document.querySelector('#appDots');
-const carousel = document.querySelector('#appCarousel');
-let currentScreen = 0;
+const announcement = document.querySelector('#appScreenAnnouncement');
+const playToggle = document.querySelector('#appTogglePlay');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const screenPreloads = appScreens.map(([image]) => {
+  const preload = new Image();
+  preload.src = `img/${image}`;
+  return preload;
+});
+const autoAdvanceDelay = 3600;
+let currentScreen = -1;
+let imageRequest = 0;
+let autoAdvanceTimer = null;
+let manuallyPaused = false;
 
-function showScreen(index) {
+function showScreen(index, { animate = true, announce = false } = {}) {
   currentScreen = (index + appScreens.length) % appScreens.length;
-  const half = Math.floor(appScreens.length / 2);
-  const [, activeLabel, activeAlt] = appScreens[currentScreen];
-  track.setAttribute('aria-label', `Screen ${currentScreen + 1} of ${appScreens.length}: ${appScreens[currentScreen][1]}`);
-  [...track.children].forEach((card, cardIndex) => {
-    let offset = cardIndex - currentScreen;
-    if (offset > half) offset -= appScreens.length;
-    if (offset < -half) offset += appScreens.length;
-    const position = offset === 0 ? 'active' : Math.abs(offset) === 1 ? `near-${offset < 0 ? 'left' : 'right'}` : Math.abs(offset) === 2 ? `far-${offset < 0 ? 'left' : 'right'}` : 'hidden';
-    const active = offset === 0;
-    card.dataset.position = position;
-    card.setAttribute('aria-current', active ? 'step' : 'false');
-    card.setAttribute('aria-hidden', Math.abs(offset) > 2 ? 'true' : 'false');
-    card.setAttribute('aria-label', `Show ${appScreens[cardIndex][1]} app screen${active ? ', current screen' : ''}`);
-    card.tabIndex = active ? 0 : -1;
-    card.querySelector('img').loading = Math.abs(offset) <= 1 ? 'eager' : 'lazy';
-  });
-  carousel.setAttribute('aria-label', `CheQBuy app screens. Current screen: ${activeLabel}`);
-  count.textContent = `${String(currentScreen + 1).padStart(2, '0')} / ${String(appScreens.length).padStart(2, '0')}`;
+  const [image, label, alt] = appScreens[currentScreen];
+  const request = ++imageRequest;
+  const updateImage = () => {
+    if (request !== imageRequest) return;
+
+    if (animate && !reducedMotion.matches) {
+      screenImage.classList.add('is-changing');
+      window.setTimeout(() => {
+        if (request !== imageRequest) return;
+        screenImage.src = `img/${image}`;
+        screenImage.alt = alt;
+        window.requestAnimationFrame(() => screenImage.classList.remove('is-changing'));
+      }, 130);
+    } else {
+      screenImage.classList.remove('is-changing');
+      screenImage.src = `img/${image}`;
+      screenImage.alt = alt;
+    }
+  };
+  const preload = screenPreloads[currentScreen];
+
+  if (preload.complete) {
+    if (preload.naturalWidth) {
+      updateImage();
+    } else {
+      console.error(`Unable to load CheQBuy app screen: ${preload.src}`);
+    }
+  } else {
+    preload.addEventListener('load', updateImage, { once: true });
+    preload.addEventListener('error', () => {
+      if (request === imageRequest) console.error(`Unable to load CheQBuy app screen: ${preload.src}`);
+    }, { once: true });
+  }
+
+  const screenPosition = `${String(currentScreen + 1).padStart(2, '0')} / ${String(appScreens.length).padStart(2, '0')}`;
+  count.textContent = screenPosition;
+  carouselRegion.setAttribute('aria-label', `CheQBuy app screens. ${label}, screen ${screenPosition}`);
+  if (announce) announcement.textContent = `${label}, screen ${screenPosition}`;
+
   [...dots.children].forEach((dot, dotIndex) => {
     const active = dotIndex === currentScreen;
     dot.classList.toggle('active', active);
@@ -46,34 +109,70 @@ function showScreen(index) {
   });
 }
 
-appScreens.forEach(([image, label, alt], index) => {
-  const card = document.createElement('button');
-  card.type = 'button';
-  card.className = 'screen-card';
-  card.dataset.index = String(index);
-  card.dataset.position = 'hidden';
-  card.setAttribute('aria-label', `Show ${label} app screen`);
-  card.setAttribute('aria-hidden', 'true');
-  card.tabIndex = -1;
-  card.innerHTML = `<span class="screen-card-image"><img src="img/${image}" alt="${alt}" loading="${index < 3 ? 'eager' : 'lazy'}"></span><span class="screen-card-label"><small>CHEQBUY APP · ${String(index + 1).padStart(2, '0')}</small><b>${label}</b></span>`;
-  card.addEventListener('click', () => showScreen(index));
-  track.append(card);
-
+appScreens.forEach(([image, label], index) => {
   const dot = document.createElement('button');
   dot.type = 'button';
   dot.className = 'carousel-dot';
   dot.setAttribute('aria-label', `Show ${label} screen`);
-  dot.addEventListener('click', () => showScreen(index));
+  dot.addEventListener('click', () => changeScreen(index));
   dots.append(dot);
 });
 
-document.querySelector('#appPrev').addEventListener('click', () => showScreen(currentScreen - 1));
-document.querySelector('#appNext').addEventListener('click', () => showScreen(currentScreen + 1));
-carousel.addEventListener('keydown', event => {
-  if (event.key === 'ArrowLeft') showScreen(currentScreen - 1);
-  if (event.key === 'ArrowRight') showScreen(currentScreen + 1);
+function stopAutoAdvance() {
+  window.clearInterval(autoAdvanceTimer);
+  autoAdvanceTimer = null;
+}
+
+function startAutoAdvance() {
+  const carouselFocused = carouselRegion.contains(document.activeElement) || carouselControls.contains(document.activeElement);
+  if (autoAdvanceTimer !== null || manuallyPaused || reducedMotion.matches || document.hidden
+    || carouselRegion.matches(':hover') || carouselControls.matches(':hover') || carouselFocused) return;
+  autoAdvanceTimer = window.setInterval(() => showScreen(currentScreen + 1), autoAdvanceDelay);
+}
+
+function syncAutoAdvance() {
+  stopAutoAdvance();
+  const motionDisabled = reducedMotion.matches;
+  playToggle.disabled = motionDisabled;
+  playToggle.setAttribute('aria-label', motionDisabled
+    ? 'Automatic screen changes are disabled by your reduced motion setting'
+    : manuallyPaused ? 'Play automatic screen changes' : 'Pause automatic screen changes');
+  playToggle.setAttribute('aria-pressed', String(manuallyPaused));
+  playToggle.textContent = manuallyPaused ? '▶' : 'Ⅱ';
+  startAutoAdvance();
+}
+
+function changeScreen(index) {
+  showScreen(index, { announce: true });
+  syncAutoAdvance();
+}
+
+document.querySelector('#appPrev').addEventListener('click', () => changeScreen(currentScreen - 1));
+document.querySelector('#appNext').addEventListener('click', () => changeScreen(currentScreen + 1));
+playToggle.addEventListener('click', () => {
+  manuallyPaused = !manuallyPaused;
+  syncAutoAdvance();
 });
-showScreen(0);
+carouselRegion.addEventListener('keydown', event => {
+  if (event.key === 'ArrowLeft') changeScreen(currentScreen - 1);
+  if (event.key === 'ArrowRight') changeScreen(currentScreen + 1);
+});
+carouselRegion.addEventListener('pointerenter', stopAutoAdvance);
+carouselRegion.addEventListener('pointerleave', startAutoAdvance);
+carouselControls.addEventListener('pointerenter', stopAutoAdvance);
+carouselControls.addEventListener('pointerleave', startAutoAdvance);
+carouselRegion.addEventListener('focusin', stopAutoAdvance);
+carouselRegion.addEventListener('focusout', event => {
+  if (!carouselRegion.contains(event.relatedTarget)) startAutoAdvance();
+});
+carouselControls.addEventListener('focusin', stopAutoAdvance);
+carouselControls.addEventListener('focusout', event => {
+  if (!carouselControls.contains(event.relatedTarget)) startAutoAdvance();
+});
+document.addEventListener('visibilitychange', syncAutoAdvance);
+reducedMotion.addEventListener('change', syncAutoAdvance);
+showScreen(0, { animate: false });
+syncAutoAdvance();
 
 const menuToggle = document.querySelector('#menuToggle');
 const siteNav = document.querySelector('#siteNav');
