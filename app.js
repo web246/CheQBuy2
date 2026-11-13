@@ -22,7 +22,7 @@ revealGroups.forEach(selector => {
   });
 });
 
-if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+if ('IntersectionObserver' in window && !document.hidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
@@ -33,6 +33,14 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
   revealTargets.forEach(element => revealObserver.observe(element));
 } else {
   revealTargets.forEach(element => element.classList.add('is-visible'));
+}
+
+const siteHeader = document.querySelector('.site-header');
+if ('IntersectionObserver' in window) {
+  const headerObserver = new IntersectionObserver(([entry]) => {
+    siteHeader.classList.toggle('is-scrolled', !entry.isIntersecting);
+  });
+  headerObserver.observe(document.querySelector('.hero'));
 }
 
 const appScreens = [
