@@ -43,6 +43,63 @@ if ('IntersectionObserver' in window) {
   headerObserver.observe(document.querySelector('.hero'));
 }
 
+const promptCloud = document.querySelector('.prompt-cloud');
+const canNudgePrompts = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (promptCloud && canNudgePrompts) {
+  const promptChips = [...promptCloud.children];
+  const chipOffsets = new Map();
+  const promptArea = promptCloud.closest('.journey-section');
+  const reach = 185;
+  const push = 54;
+  let pointer = null;
+  let placementQueued = false;
+
+  function placePromptChips() {
+    placementQueued = false;
+    for (const chip of promptChips) {
+      const rect = chip.getBoundingClientRect();
+      const [previousX, previousY] = chipOffsets.get(chip) || [0, 0];
+      const dx = rect.left + rect.width / 2 - previousX - (pointer?.x ?? -reach * 2);
+      const dy = rect.top + rect.height / 2 - previousY - (pointer?.y ?? -reach * 2);
+      const distance = Math.hypot(
+        Math.max(Math.abs(dx) - rect.width / 2, 0),
+        Math.max(Math.abs(dy) - rect.height / 2, 0)
+      );
+      let x = 0;
+      let y = 0;
+      if (distance < reach) {
+        const force = (1 - distance / reach) ** 2 * push;
+        const length = Math.hypot(dx, dy) || 1;
+        x = dx / length * force;
+        y = dy / length * force;
+      }
+      chip.style.setProperty('--pointer-x', `${x.toFixed(1)}px`);
+      chip.style.setProperty('--pointer-y', `${y.toFixed(1)}px`);
+      chipOffsets.set(chip, [x, y]);
+    }
+  }
+
+  function queuePromptPlacement() {
+    if (placementQueued) return;
+    placementQueued = true;
+    window.requestAnimationFrame(placePromptChips);
+  }
+
+  promptArea.addEventListener('pointermove', event => {
+    pointer = { x: event.clientX, y: event.clientY };
+    queuePromptPlacement();
+  });
+  promptArea.addEventListener('pointerleave', () => {
+    pointer = null;
+    queuePromptPlacement();
+  });
+  window.addEventListener('scroll', () => {
+    pointer = null;
+    queuePromptPlacement();
+  }, { passive: true });
+}
+
 const appScreens = [
   ['app-gallery/site-welcome.webp', 'Welcome', 'CheQBuy app welcome screen with supplier, payment and delivery features'],
   ['app-gallery/site-home.webp', 'Home', 'CheQBuy app home screen with product search and quick actions'],

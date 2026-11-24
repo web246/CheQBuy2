@@ -5,9 +5,11 @@ search. Its bottom navigation links to Home, Shop, Saved, Cart and Orders. The c
 supports product search and category filters, with a browser-saved cart and wishlist.
 Sign-in and order placement are handed off to the existing CheQBuy web app. The preview
 cart is not transferred to that app; customers must add those products again after signing in.
-The marketing page follows a YUMLOG-inspired editorial layout with a split coral hero,
-floating service callouts, a matching proof-point band, spacious dark sections, warm service
-panels, a green app feature and a divider-style FAQ. Open Sans and CheQBuy content/assets are
-retained.
-The marketing page includes a single phone preview that loops through the CheQBuy welcome, home, shop and shipping app screens. The preview has keyboard controls and a pause button. Its sections reveal in a gentle stagger as you scroll, with subtle floating phone and prompt-chip animations.
+The marketing page uses a coral hero with layered CheQBuy app screens, an evergreen proof
+strip, a warm neutral canvas, saffron service cards, a green app gallery and a divider-style
+FAQ. It retains CheQBuy branding, copy and local app imagery.
+The marketing page includes a phone preview that loops through the CheQBuy welcome, home,
+shop and shipping app screens. The preview has keyboard controls and a pause button. Sections
+reveal in a stagger as you scroll, with floating phone and prompt chips, pointer-responsive
+prompt chips and an animated FAQ. Motion effects respect the reduced-motion setting.
 The app-download badges use store search pages until direct listing links are available.
