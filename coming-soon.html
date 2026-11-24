@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CheQBuy Web App - Coming Soon</title>
+  <meta name="description" content="The CheQBuy web app is coming soon. Download the mobile app for Android or iOS.">
+  <link rel="stylesheet" href="styles.css?v=17">
+  <style>
+    body { min-height: 100vh; margin: 0; background: #153d30; }
+    .coming-soon { min-height: 100vh; display: grid; place-items: center; overflow: hidden; padding: 48px 24px; color: #fff; background: radial-gradient(circle at 80% 20%, rgba(255,173,152,.28), transparent 28%), #153d30; }
+    .coming-soon-inner { width: min(680px, 100%); text-align: center; }
+    .coming-soon-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 54px; color: #fff; font: 800 20px/1 "Open Sans", Arial, sans-serif; }
+    .coming-soon-brand img { width: 48px; height: 44px; object-fit: contain; }
+    .coming-soon-brand span { text-align: left; }
+    .coming-soon-brand small { display: block; margin-top: 6px; color: rgba(255,255,255,.64); font-size: 8px; letter-spacing: .19em; }
+    .coming-soon h1 { margin: 0; font: 800 clamp(44px, 8vw, 72px)/1 "Open Sans", Arial, sans-serif; letter-spacing: 0; }
+    .coming-soon h1 em { color: #ffad98; font-style: normal; }
+    .coming-soon p { max-width: 540px; margin: 22px auto 30px; color: rgba(255,255,255,.76); font-size: 16px; line-height: 1.65; }
+    .coming-soon-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .coming-soon-badges .store-badge { background: #fff; }
+    .coming-soon-badges .store-badge img { width: 168px; height: 52px; }
+    .coming-soon-back { display: inline-block; margin-top: 30px; color: rgba(255,255,255,.82); font-size: 13px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+    @media (max-width: 620px) {
+      .coming-soon { padding: 36px 18px; }
+      .coming-soon-brand { margin-bottom: 38px; }
+      .coming-soon-badges { gap: 10px; }
+      .coming-soon-badges .store-badge img { width: 168px; height: 52px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="coming-soon">
+    <div class="coming-soon-inner">
+      <a class="coming-soon-brand" href="index.html" aria-label="CheQBuy home">
+        <img src="img/logo.png" alt="">
+        <span>CheQBuy<small>AFRICAN TRADE</small></span>
+      </a>
+      <h1>Web app<br><em>coming soon.</em></h1>
+      <p>In the meantime, download the CheQBuy app for the full product, shipping and shipment-tracking experience.</p>
+      <div class="coming-soon-badges" aria-label="Download CheQBuy">
+        <a class="store-badge" href="https://play.google.com/store/search?q=CheQBuy%20African%20Trade&amp;c=apps" target="_blank" rel="noopener noreferrer" aria-label="Get CheQBuy on Google Play">
+          <img src="img/store-badges/google-play-badge.png" alt="Get it on Google Play">
+        </a>
+        <a class="store-badge" href="https://apps.apple.com/us/search?term=CheQBuy%20African%20Trade" target="_blank" rel="noopener noreferrer" aria-label="Get CheQBuy on the App Store">
+          <img src="img/store-badges/app-store-badge.svg" alt="Download on the App Store">
+        </a>
+      </div>
+      <a class="coming-soon-back" href="index.html">Back to CheQBuy</a>
+    </div>
+  </main>
+</body>
+</html>
