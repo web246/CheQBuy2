@@ -9,6 +9,9 @@
   --soft: #fff;
   --line: rgba(36, 34, 29, .16);
   --orange: #e85a41;
+  --gold-ink: #282319;
+  --gold-muted: #554b36;
+  --gold-accent: #842d1d;
   --sans: "Quicksand", sans-serif;
   --display: "Quicksand", sans-serif;
   --store-google-width: 168px;
@@ -73,11 +76,11 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--teal-light); ou
 .hero-visual::before, .hero-visual::after { position: absolute; top: 50%; left: 52%; width: 430px; aspect-ratio: 1; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; content: ""; transform: translate(-50%, -50%); pointer-events: none; }
 .hero-visual::after { width: 330px; border-color: rgba(255,255,255,.12); }
 .hero-phone { overflow: hidden; border: 7px solid #191923; border-radius: 38px; background: #fff; box-shadow: 0 28px 65px rgba(30,8,7,.35), 0 0 0 1px rgba(255,255,255,.28); }
-.hero-phone-main { position: relative; z-index: 2; width: min(68%, 266px); margin-right: 1%; animation: phone-float 7s ease-in-out 1s infinite; }
-.hero-phone-secondary { position: absolute; z-index: 1; top: 17%; left: 3%; width: min(45%, 180px); border-width: 5px; border-radius: 27px; opacity: .94; rotate: -8deg; animation: phone-float 8s ease-in-out -2s infinite; }
+.hero-phone-main { position: relative; z-index: 2; width: min(68%, 266px); margin-right: 1%; animation: hero-phone-float 8s ease-in-out 1s infinite; }
+.hero-phone-secondary { position: absolute; z-index: 1; top: 17%; left: 3%; width: min(45%, 180px); border-width: 5px; border-radius: 27px; opacity: .94; rotate: -8deg; animation: hero-phone-float 9s ease-in-out -2s infinite; }
 .hero-phone-secondary img { aspect-ratio: 1 / 1.8; }
 .hero-phone img { width: 100%; height: auto; aspect-ratio: 1 / 2; object-fit: cover; }
-.hero-float { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 12px 17px; border-radius: 999px; color: #211a20; background: #fff; box-shadow: 0 14px 34px rgba(44,12,8,.25); font-size: 12px; font-weight: 700; white-space: nowrap; animation: phone-float 6s ease-in-out infinite; }
+.hero-float { position: absolute; z-index: 4; display: inline-flex; align-items: center; gap: 8px; padding: 12px 17px; border-radius: 999px; color: #211a20; background: #fff; box-shadow: 0 14px 34px rgba(44,12,8,.25); font-size: 12px; font-weight: 700; white-space: nowrap; animation: phone-float 6s ease-in-out infinite; }
 .hero-float::before { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--teal-dark); content: ""; }
 .hero-float-one { top: 13%; left: 1%; }
 .hero-float-two { top: 47%; left: 0; animation-delay: -2s; }
@@ -128,11 +131,11 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--teal-light); ou
 .journey-step h3 { margin: 0 0 8px; color: var(--ink); font: 700 14px var(--display); }
 .journey-step p { max-width: 295px; margin: 0; color: var(--muted); font-size: 12px; }
 
-.services-section { padding: 92px 0 105px; color: #282319; background: #f3c55b; }
+.services-section { padding: 92px 0 105px; color: var(--gold-ink); background: #f3c55b; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 36px; margin-bottom: 39px; }
-.section-heading .eyebrow { justify-content: flex-start; margin-bottom: 16px; color: rgba(40,35,25,.72); }
+.section-heading .eyebrow { justify-content: flex-start; margin-bottom: 16px; color: var(--gold-muted); }
 .section-heading h2 { max-width: 650px; }
-.section-heading > p { max-width: 360px; margin: 0 0 5px; color: rgba(40,35,25,.76); font-size: 14px; }
+.section-heading > p { max-width: 360px; margin: 0 0 5px; color: var(--gold-muted); font-size: 14px; }
 .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
 .service-card { min-width: 0; display: flex; flex-direction: column; padding: 18px; }
 .service-image { height: 360px; display: grid; place-items: center; overflow: visible; margin-bottom: 23px; }
@@ -145,12 +148,12 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--teal-light); ou
   50% { translate: 0 -8px; }
 }
 .service-card-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.service-number { color: rgba(40,35,25,.66); font: 700 9px var(--display); letter-spacing: .1em; }
+.service-number { color: var(--gold-muted); font: 700 10px var(--display); letter-spacing: .1em; }
 .service-icon { width: 39px; height: 39px; display: grid; flex: none; place-items: center; border-radius: 50%; color: #fff; background: #a53a26; }
 .service-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.service-card h3 { margin: 15px 0 8px; color: var(--ink); font: 700 18px/1.35 var(--display); letter-spacing: -.02em; }
-.service-card p { flex: 1; margin: 0; color: var(--muted); font-size: 12px; }
-.service-link { display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-top: 20px; color: var(--teal-dark); font-size: 11px; font-weight: 700; }
+.service-card h3 { margin: 15px 0 8px; color: var(--gold-ink); font: 700 18px/1.35 var(--display); letter-spacing: -.02em; }
+.service-card p { flex: 1; margin: 0; color: var(--gold-muted); font-size: 13px; }
+.service-link { display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-top: 20px; color: var(--gold-accent); font-size: 12px; font-weight: 700; }
 .service-rule { display: none; }
 
 .app-section { position: relative; overflow: hidden; color: #fff; background: #153d30; }
@@ -231,6 +234,10 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--teal-light); ou
 @keyframes phone-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
+}
+@keyframes hero-phone-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -12px, 0) rotate(1deg); }
 }
 @keyframes route-card-enter {
   from { opacity: 0; translate: -12px 8px; }
