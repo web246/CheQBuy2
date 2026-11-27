@@ -8,8 +8,8 @@
   --paper: #fff;
   --soft: #f3f6f5;
   --line: #e4eae8;
-  --display: "Manrope", "DM Sans", "Segoe UI", sans-serif;
-  --sans: "DM Sans", "Segoe UI", sans-serif;
+  --display: "Quicksand", sans-serif;
+  --sans: "Quicksand", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -20,7 +20,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 a { color: inherit; text-decoration: none; }
 [hidden] { display: none !important; }
 .store-header { position: sticky; z-index: 20; top: 0; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 max(24px, calc((100% - 1180px)/2)); border-bottom: 1px solid rgba(11,36,54,.07); background: rgba(255,255,255,.92); backdrop-filter: blur(16px); }
-.store-brand { display: inline-flex; align-items: center; gap: 8px; font: 800 17px/1 var(--display); letter-spacing: -.06em; }
+.store-brand { display: inline-flex; align-items: center; gap: 8px; font: 700 17px/1 var(--display); letter-spacing: -.06em; }
 .store-brand img { width: 41px; height: 39px; object-fit: contain; }
 .store-brand small { display: block; margin-top: 5px; color: var(--muted); font: 600 8px/1 var(--sans); letter-spacing: .18em; }
 .store-header-label { margin-left: auto; margin-right: auto; color: #64737d; font-size: 12px; font-weight: 600; }
@@ -35,7 +35,7 @@ body[data-store-view="home"] .store-promise { display: none; }
 .store-eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 13px; color: var(--teal); font-size: 9px; font-weight: 700; letter-spacing: .16em; }
 .store-eyebrow > span { width: 19px; height: 1px; background: currentColor; }
 .store-intro h1 { margin: 0; font: 700 clamp(38px, 5vw, 55px)/1.07 var(--display); letter-spacing: -.07em; }
-.store-intro h1 em { color: var(--teal); font: 400 1.03em/1.05 Georgia, "Times New Roman", serif; letter-spacing: -.06em; }
+.store-intro h1 em { color: var(--teal); font: 400 1.03em/1.05 var(--display); letter-spacing: -.06em; }
 .store-subtitle { max-width: 550px; margin: 15px 0 0; color: var(--muted); font-size: 13px; }
 .store-promise { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; padding: 12px 17px; border: 1px solid #dfe8e6; border-radius: 8px; background: rgba(255,255,255,.72); font-size: 11px; font-weight: 700; white-space: nowrap; }
 .store-promise > span:first-child { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; color: #fff; background: var(--teal); }
@@ -55,7 +55,7 @@ body[data-store-view="home"] .store-promise { display: none; }
 .home-promo-copy { position: relative; z-index: 2; max-width: 430px; padding: 15px 0; animation: home-copy-enter .65s .08s both; }
 .home-promo-copy > p { display: flex; align-items: center; gap: 9px; margin: 0 0 13px; color: var(--teal); font-size: 8px; font-weight: 700; letter-spacing: .16em; }
 .home-promo-copy > p::before { width: 21px; height: 1px; content: ""; background: currentColor; }
-.home-promo-copy h2 { margin: 0; font: 800 clamp(32px, 3.5vw, 45px)/1.04 var(--display); letter-spacing: -.07em; }
+.home-promo-copy h2 { margin: 0; font: 700 clamp(32px, 3.5vw, 45px)/1.04 var(--display); letter-spacing: -.07em; }
 .home-promo-copy > span { display: block; max-width: 320px; margin-top: 14px; color: #61727a; font-size: 12px; }
 .home-promo-button { min-height: 43px; margin-top: 22px; padding-inline: 19px; border-radius: 999px; color: #fff; background: linear-gradient(120deg, #087588, var(--teal-dark)); box-shadow: 0 8px 18px rgba(1,96,114,.2); font-size: 10px; }
 .home-promo-button:hover { color: #fff; background: var(--teal-dark); box-shadow: 0 11px 22px rgba(1,96,114,.28); transform: translateY(-2px); }
@@ -79,7 +79,7 @@ body[data-store-view="home"] .store-promise { display: none; }
 .spotlight-kicker i { width: 3px; height: 3px; border-radius: 50%; background: var(--teal-light); }
 .spotlight-details h3 { overflow: hidden; margin: 4px 0 7px; font: 700 13px/1.35 var(--display); letter-spacing: -.025em; text-overflow: ellipsis; white-space: nowrap; }
 .spotlight-bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.spotlight-bottom > b { color: var(--teal); font: 800 13px var(--display); }
+.spotlight-bottom > b { color: var(--teal); font: 700 13px var(--display); }
 .spotlight-add { display: inline-flex; align-items: center; gap: 7px; min-height: 31px; padding: 0 12px; border: 0; border-radius: 999px; color: #fff; background: var(--teal); font-size: 9px; font-weight: 700; cursor: pointer; transition: background .2s ease, transform .2s ease; }
 .spotlight-add:hover { background: var(--teal-dark); transform: translateY(-1px); }
 .spotlight-controls { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 13px; margin-top: -1px; }
